@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 해시맵이용방법 : https://cheetahcorp.tistory.com/126 -->
+<mapper namespace="com.kgs.spring.mapper.EmployMapper">
+	<resultMap id="employDTOType" type="employDTOAlias">
+		<result column="EMPLOY_CODE" property="employCode" />
+		<result column="EMPLOY_NAME" property="employName" />
+	</resultMap>
+	
+	<select id="getEmployCnt" resultType="Integer">
+		SELECT Count(*) FROM TBEMPLOY
+	</select>
+	<select id="getEmployList" parameterType="String" resultMap="employDTOType">
+		SELECT EMPLOY_CODE, EMPLOY_NAME FROM EMPLOYTB
+	</select>
+	<select id="getEmploy" parameterType="String" resultMap="employDTOType">
+		SELECT EMPLOY_CODE, EMPLOY_NAME FROM EMPLOYTB WHERE EMPLOY_CODE = #{employCode}
+	</select>
+	<insert id="insertEmploy" parameterType="employDTOAlias">
+		INSERT INTO EMPLOYTB(EMPLOY_CODE, EMPLOY_NAME) VALUES(#{employCode}, #{employName})
+	</insert>
+	<insert id="insertEmployList" parameterType="java.util.List">
+		INSERT ALL 
+    	<foreach collection="list" item="item" separator=" " open=" " close=" "> 
+			INTO EMPLOYTB(EMPLOY_CODE, EMPLOY_NAME) VALUES(#{item.employCode}, #{item.employName}) 
+    	</foreach>
+    	SELECT * FROM DUAL
+    </insert>
+	<update id="updateEmploy" parameterType="employDTOAlias">
+		UPDATE EMPLOYTB SET EMPLOY_NAME = #{employName} WHERE EMPLOY_CODE = #{employCode}
+	</update>
+	<delete id="deleteEmploy" parameterType="String">
+		DELETE FROM EMPLOYTB WHERE EMPLOY_CODE = #{employCode}
+	</delete>
+	<delete id="deleteAllEmploy">
+		DELETE FROM EMPLOYTB
+	</delete>
+</mapper>
