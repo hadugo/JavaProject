@@ -14,6 +14,9 @@
 			$("#btn2").click(function(){
 				$(location).attr("href", "employ/MybatisTransactionTest");
 			});
+			$("#btn3").click(function(){
+				$(location).attr("href", "employ/Ajax");
+			});
 		});
 	</SCRIPT>
 </head>
@@ -22,5 +25,6 @@
 	<H1>Spring Mybatis Sample</H1>
 	<input type="button" id="btn1" name="btn1" value="Mybatis Test">
 	<input type="button" id="btn2" name="btn2" value="Mybatis Transaction Test">
+	<input type="button" id="btn3" name="btn3" value="Ajax Test">
 </body>
 </html>
